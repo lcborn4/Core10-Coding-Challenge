@@ -5,9 +5,7 @@ const axios = require("axios");
 module.exports = {
   //pass in the species url
   async getSpecies(speciesUrl) {
-    // console.log("speciesUrl", speciesUrl);
     let species = await axios.get(speciesUrl);
-    // console.log("species.data", species.data);
     return species.data;
   },
 };

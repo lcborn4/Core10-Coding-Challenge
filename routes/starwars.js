@@ -14,7 +14,6 @@ router.get("/character/starships/:characterNumber", async (req, res, next) => {
   try {
     let characterNumber = req.params.characterNumber; //1 for luke
     let charObj = await getCharacter(characterNumber); //character object
-    console.log("starShips", charObj.starships); //debug their starships
     let starShips = charObj.starships;
     //they are in starships
 
@@ -22,13 +21,10 @@ router.get("/character/starships/:characterNumber", async (req, res, next) => {
     let promises = [];
     //find the ships
     starShips.forEach((starShip) => {
-      //   console.log("starShip", starShip);
-
       promises.push(getStarShip(starShip));
     });
 
     let retrievedStarShips = await Promise.all(promises);
-    console.log("retrievedStarShips", retrievedStarShips);
     let starShipNames = [];
     retrievedStarShips.forEach((starShips) => {
       starShipNames.push(starShips.name);
@@ -50,7 +46,6 @@ router.get("/classification/species/:episode", async (req, res, next) => {
 
     //get film
     let film = await getFilm(episode);
-    // console.log("film", film);
 
     let promises = [];
     //get the species
@@ -80,15 +75,11 @@ router.get("/population/all", async (req, res, next) => {
 
     let allPlanets = await getAllPlanets();
 
-    // console.log("allPlanets", allPlanets);
     allPlanets.results.forEach((planet) => {
-      //   console.log("population before", population);
-      //   console.log("planet.population", planet.population);
       if (planet.population !== "unknown") {
         let planetPopulation = Number(planet.population);
         population = population + planetPopulation;
       }
-      //   console.log("population after", population);
     });
 
     return res.status(200).json(population);
