@@ -28,9 +28,13 @@ router.get("/character/starships/:characterNumber", async (req, res, next) => {
     });
 
     let retrievedStarShips = await Promise.all(promises);
-    // console.log("retrievedStarShips", retrievedStarShips);
+    console.log("retrievedStarShips", retrievedStarShips);
+    let starShipNames = [];
+    retrievedStarShips.forEach((starShips) => {
+      starShipNames.push(starShips.name);
+    });
     //return starships
-    return res.status(200).json(retrievedStarShips);
+    return res.status(200).json(starShipNames);
   } catch (err) {
     console.log(err);
     //possibly send error code
